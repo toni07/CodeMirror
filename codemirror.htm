@@ -1,0 +1,82 @@
+<html>
+	<head>
+		<title>Test codemirror</title>
+		<script type="text/javascript" src="/js/codemirror.js"></script>
+		<link rel="stylesheet" href="/css/codemirror.css">
+		<script type="text/javascript" src="/js/codemirror/javascript.js"></script>
+		<script type="text/javascript" src="/js/codemirror/xml.js"></script>
+		<script type="text/javascript" src="/js/codemirror/php.js"></script>
+		<script type="text/javascript" src="/js/codemirror/clike.js"></script>
+		<style>
+			.CodeMirror-line.odd{
+				background:#eeeeee;
+			}
+			.CodeMirror-line.selected{
+				background:#99ccff;
+			}
+			/*.CodeMirror-selected{
+				background:#ddccaa !important;
+			}*/
+		</style>
+	</head>
+	<body style="height:100%;">
+
+		<div style="width:90%;margin:auto;">
+			<h2>JS</h2>
+			<textarea id="code1" class="code javascript">
+				function myScript(){
+					return 100;
+				}
+				<div id="toto" disabled>hello!</div>
+			</textarea>
+			
+			<br /><br />
+			
+			<h2>XML</h2>
+			<textarea id="code2" class="code xml">
+				function myScript(){
+					return 100;
+				}
+				<div id="toto" disabled>hello!</div>
+			</textarea>
+			
+			<br /><br />
+			
+			<h2>PHP</h2>
+			<textarea id="code3" class="code php">
+				function myScript(){
+					echo 'toto';
+					return 100;
+				}
+				<div id="toto" disabled>hello!</div>
+			</textarea>
+			
+			<h2>Java</h2>
+			<textarea id="code4" class="code text/x-java">
+				public class Toto{
+					private static final int test = 0;
+					private static final String test2 = "blabla";
+				}
+				<div id="toto" disabled>hello!</div>
+			</textarea>
+			
+		</div>
+		<script>		
+			var textAreaCodeElementList = document.getElementsByTagName('textarea');
+			for(var i=0;i<textAreaCodeElementList.length;i++){
+				var textAreaCodeElement = textAreaCodeElementList[i];
+				if((/code /gi).test(textAreaCodeElement.className)){
+					var language = textAreaCodeElement.className.replace(/code /gi, '');
+					var codeMirror = CodeMirror(function(elt) {
+					  textAreaCodeElement.parentNode.replaceChild(elt, textAreaCodeElement);
+					}, {
+						value: textAreaCodeElement.value,
+						lineNumbers: true,
+						readOnly: true,
+						mode: language
+					});
+				}
+			}
+		</script>
+	</body>
+</html>
